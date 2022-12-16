@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="https://piyagehi.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://piyagehi.github.io/" rel="alternate" type="text/html" /><updated>2022-12-16T14:48:37+00:00</updated><id>https://piyagehi.github.io/feed.xml</id><title type="html">Piya Gehi</title><subtitle>Welcome to my space on the internet.</subtitle><entry><title type="html">Creating A Blog with GitHub Pages and Jekyll</title><link href="https://piyagehi.github.io/blog-set-up" rel="alternate" type="text/html" title="Creating A Blog with GitHub Pages and Jekyll" /><published>2022-12-16T14:30:00+00:00</published><updated>2022-12-16T14:30:00+00:00</updated><id>https://piyagehi.github.io/blog-set-up</id><content type="html" xml:base="https://piyagehi.github.io/blog-set-up"><![CDATA[<p>I have written blogs before on existing web-based blogging platforms like Blogger and Tumblr, lots of them. For this website, I was looking for fewer features that I could fine-tune locally on my machine. Keeping this in mind, GitHub Pages with Jekyll seemed like the best option. I’ve documented the process step-by-step in the form of a setup post, hoping it might help those who are looking to setup their own website.</p>
+
+<h2 id="hosting---github-pages">Hosting - GitHub Pages</h2>
+<p><a href="https://pages.github.com">GitHub Pages</a> is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website. Using GitHub Pages for hosting the website seemed ideal since I’m familiar with GitHub and already have repositories there.</p>
+
+<p>Start by creating a repository with the name <code class="language-plaintext highlighter-rouge">&lt;username&gt;.github.io</code>, replacing <code class="language-plaintext highlighter-rouge">&lt;username&gt;</code> with your GitHub username. Next, we move on to creating the files for the wesbite.</p>
+
+<h2 id="site-generator---jekyll">Site generator - Jekyll</h2>
+<p>To create your website, you can do it from scratch by creating HTML and CSS files for each part of your website, or automate the process using a static site generator. The pages are pre-built before publishing, which leads to faster loading times and a lightweight website. <a href="https://jekyllrb.com">Jekyll</a> is one such site generator, which is the site generator used in GitHub Pages. It takes Markdown and HTML files and builds the website based on the layouts provided by the theme.</p>
+
+<h2 id="local-setup">Local Setup</h2>
+<p>Setting a Jekyll requires Ruby and Git to be installed on your machine. Git is usually installed by default, and the instructions for installing Ruby on different operating systems can be found <a href="https://jekyllrb.com/docs/installation/">here</a>.</p>
+
+<p>Note: While installing this on a Mac M1 machine, the build kept failing due to errors relating to OpenSSL. So if you’re facing a similar problem, adding the following environement variables before the install command should help.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">"-L</span><span class="si">$(</span>brew <span class="nt">--prefix</span> capstone<span class="si">)</span><span class="s2">/lib"</span>
+<span class="nb">export </span><span class="nv">CPPFLAGS</span><span class="o">=</span><span class="s2">"-I</span><span class="si">$(</span>brew <span class="nt">--prefix</span> capstone<span class="si">)</span><span class="s2">/include"</span>
+<span class="nb">export </span><span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span>brew <span class="nt">--prefix</span> openssl@1.1<span class="si">)</span><span class="s2">/lib/pkgconfig"</span>
+</code></pre></div></div>
+
+<p>Once installed, create your new website by typing <code class="language-plaintext highlighter-rouge">jekyll new &lt;directory name&gt;</code>. This provides a base theme to begin with, however you can modify it to your needs, which will be discussed in the next section. You can run the blog locally by typing:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--watch</span>
+</code></pre></div></div>
+
+<h2 id="theme---bear-blog">Theme - Bear Blog</h2>
+<p>There are a couple of sites where you can find Jekyll themes, they are listed in the <a href="https://jekyllrb.com/docs/themes/">Jekyll documentation</a>. After a lot of searching, I chose <a href="https://github.com/knhash/jekyllBear">jekyllBear</a>, a theme based on <a href="https://bearblog.dev">Bear Blog</a>, a writing-focused blogging platform. It has few but important features, making it easy to manage and also add/tweak stuff in the future. Using the <a href="https://github.com/knhash/jekyllBear#installation">installation instructions</a>, I made changes to the required files in my website repository and added/modified files if required.</p>
+
+<p>Additionally, you can make changes to the theme itself like modifying the CSS, adding <a href="https://mcpride.github.io/posts/development/2018/03/06/syntax-highlighting-with-jekyll/">syntax highlighting functionality</a> or adding <a href="https://jekyllrb.com/docs/plugins/installation/">Jekyll plguins</a>.</p>
+
+<h2 id="add-content">Add content</h2>
+<p>The theme provides some basic files to add content to, for example an <code class="language-plaintext highlighter-rouge">index.md</code> file for the home page, an <code class="language-plaintext highlighter-rouge">about.md</code> for the about page, and a <code class="language-plaintext highlighter-rouge">_posts</code> directory where you can create blog posts. Create your first post by adding a file in the <code class="language-plaintext highlighter-rouge">_posts</code> directory with the following format: <code class="language-plaintext highlighter-rouge">year-month-date-posttitle.md</code>. You can use the existing posts in the directory as a way to know what format to follow for the content.</p>
+
+<h2 id="publish-your-website">Publish your website</h2>
+<p>Now that you have your content and theme ready, it’s time to publish your site to GitHub Pages. 
+Firstly, if your repository is not initialized as a git repository by this stage, enter the following commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git init
+<span class="nv">$ </span>git remote add origin &lt;website_repo_url&gt;.git
+</code></pre></div></div>
+
+<p>This initializes the repository and adds the url of where to push the commits to, which is your website repository.</p>
+
+<p>Lastly, I wanted to publish only the files from the build of the site and not the source files. <a href="https://gist.github.com/cobyism/4730490">This gist</a> explains on how to publish a subfolder to GitHub Pages. Based on it, I created a script that I can call whenever I want to publish a post or update any part of the website.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#! /bin/bash</span>
+<span class="c"># Usage: ./publish &lt;message&gt;</span>
+jekyll build
+git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+git subtree push <span class="nt">--prefix</span> _site origin main
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">jekyll build</code> build the website files and stores it in the <code class="language-plaintext highlighter-rouge">_site</code> directory. The files are added and a commit is made with a message of choice, entered as the first parameter when running the script (hence the <code class="language-plaintext highlighter-rouge">$1</code>). The <code class="language-plaintext highlighter-rouge">git subtree</code> command pushes the contents of the <code class="language-plaintext highlighter-rouge">_site</code> subfolder to GitHub.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">chmod</span> +x publish
+<span class="nv">$ </span>./publish <span class="s2">"Initial commit"</span>
+</code></pre></div></div>
+
+<p>Once the script is run, you can see the files in your repository (<a href="https://github.com/piyagehi/piyagehi.github.io">example</a>). Once the build is complete on GitHub (this may take some time with a green tick should appear next to the recent commit’s hash), the content will appear on <code class="language-plaintext highlighter-rouge">&lt;username&gt;.github.io</code>, the way you see this website here!</p>]]></content><author><name></name></author><category term="blog" /><category term="jekyll" /><category term="github-pages" /><summary type="html"><![CDATA[I have written blogs before on existing web-based blogging platforms like Blogger and Tumblr, lots of them. For this website, I was looking for fewer features that I could fine-tune locally on my machine. Keeping this in mind, GitHub Pages with Jekyll seemed like the best option. I’ve documented the process step-by-step in the form of a setup post, hoping it might help those who are looking to setup their own website.]]></summary></entry><entry><title type="html">Another featured writeup! - Google CTF 2022</title><link href="https://piyagehi.github.io/google-writeup-win" rel="alternate" type="text/html" title="Another featured writeup! - Google CTF 2022" /><published>2022-08-09T15:36:34+00:00</published><updated>2022-08-09T15:36:34+00:00</updated><id>https://piyagehi.github.io/google-writeup-win</id><content type="html" xml:base="https://piyagehi.github.io/google-writeup-win"><![CDATA[<p>Another one of my writeups got selected as the best writeup for a challenge in <a href="https://capturetheflag.withgoogle.com">Google CTF 2022</a>!</p>
+
+<p>Seeing the writeup featured in the <a href="https://groups.google.com/g/google-ctf/c/BQG1LP8vuZ4">official announcement</a> alongside others came as a pleasant surprise, considering this was the only writeup I submitted (and the first time I solved a challenge in a Google CTF).</p>
+
+<p><img src="/assets/images/google-writeup-winner.png" alt="" /></p>
+
+<p>Link: <a href="https://github.com/piyagehi/CTF-Writeups/blob/main/2022-Google-CTF/misc-appnote.md">https://github.com/piyagehi/CTF-Writeups/blob/main/2022-Google-CTF/misc-appnote.md</a></p>]]></content><author><name></name></author><category term="ctf" /><category term="writeups" /><category term="google" /><summary type="html"><![CDATA[Another one of my writeups got selected as the best writeup for a challenge in Google CTF 2022!]]></summary></entry><entry><title type="html">Featured writeup for Hacky Holidays - Unlock The City</title><link href="https://piyagehi.github.io/hh-writeup-win" rel="alternate" type="text/html" title="Featured writeup for Hacky Holidays - Unlock The City" /><published>2022-08-02T22:20:38+00:00</published><updated>2022-08-02T22:20:38+00:00</updated><id>https://piyagehi.github.io/hh-writeup-win</id><content type="html" xml:base="https://piyagehi.github.io/hh-writeup-win"><![CDATA[<p>Hacky Holidays - Unlock The City was a Capture The Flag competition organized by the Hackazon platform by Deloitte. It ran from 8th-26th July, with a set of challenges releasing each week. At the end, all participants were encouraged to send in their writeups for the challenges, and the best writeups were announced today on their <a href="https://hackyholidays.io">website</a>.</p>
+
+<p><img src="/assets/images/hh-writeup-winners.png" alt="" /></p>
+
+<p>My writeup was selected as one of 10 best writeups from this CTF! The challenge, Technical Debt was my favorite challenge from this year’s competition, and typing the writeup was an equally fun process! Adding to that, the fact that my very first set of published writeups were from Hacky Holidays 2021 made this all the more special. ✨</p>
+
+<p>Read here: <a href="https://github.com/piyagehi/CTF-Writeups/blob/main/2022-Unlock-The-City/technical-debt.md">https://github.com/piyagehi/CTF-Writeups/blob/main/2022-Unlock-The-City/technical-debt.md</a></p>]]></content><author><name></name></author><category term="hacky-holidays" /><category term="deloitte" /><category term="ctf" /><category term="writeups" /><summary type="html"><![CDATA[Hacky Holidays - Unlock The City was a Capture The Flag competition organized by the Hackazon platform by Deloitte. It ran from 8th-26th July, with a set of challenges releasing each week. At the end, all participants were encouraged to send in their writeups for the challenges, and the best writeups were announced today on their website.]]></summary></entry><entry><title type="html">How To View and Update the Linux PATH Environment Variable</title><link href="https://piyagehi.github.io/path-variable-article" rel="alternate" type="text/html" title="How To View and Update the Linux PATH Environment Variable" /><published>2022-07-20T18:25:48+00:00</published><updated>2022-07-20T18:25:48+00:00</updated><id>https://piyagehi.github.io/path-variable-article</id><content type="html" xml:base="https://piyagehi.github.io/path-variable-article"><![CDATA[<p>I submitted an article as part of DigitalOcean’s Write for DOnations initiative a while back, and it got published today! 🥳 A big shoutout to the Editorial Team, and especially to Caitlin Postal, who helped with further refining the article.</p>
+
+<p>Read here: <a href="https://www.digitalocean.com/community/tutorials/how-to-view-and-update-the-linux-path-environment-variable">https://www.digitalocean.com/community/tutorials/how-to-view-and-update-the-linux-path-environment-variable</a></p>]]></content><author><name></name></author><category term="digitalocean" /><category term="path-variable" /><category term="linux" /><category term="write-for-donations" /><summary type="html"><![CDATA[I submitted an article as part of DigitalOcean’s Write for DOnations initiative a while back, and it got published today! 🥳 A big shoutout to the Editorial Team, and especially to Caitlin Postal, who helped with further refining the article.]]></summary></entry></feed>
